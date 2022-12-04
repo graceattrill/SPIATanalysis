@@ -41,63 +41,9 @@ for (i in T.files){
   }
   
   #Adjust input if T cell populations are missing
-  if (melpin=="17H10307 A25"){    #P3,P7 missing
-    T.phenotypes<-c("P1","P2","P4","P5","P6", "P8","CD4")
-    categories_of_interest<-c("P1","P2", "P4", "P5", "P6", "P8", "Melanoma","CD4")
-    colour_vector<-c("chartreuse", "cyan", "darkorange", "deeppink", "chocolate4", "seagreen", "maroon","grey")
-  } else if (melpin=="41891-16H"|melpin=="SP-18-019791"){  #P1,3,5,7 missing
-    T.phenotypes<-c("P2","P4","P6", "P8","CD4")
-    categories_of_interest<-c("P2","P4","P6", "P8","Melanoma","CD4")
-    colour_vector<-c("cyan", "darkorange", "chocolate4", "seagreen", "maroon","grey")
-  }else if (melpin=="50681") { #P5 missing
-    T.phenotypes<-c("P1", "P2", "P3", "P4","P6","P7","P8","CD4")
-    categories_of_interest<-c("P1","P2","P3", "P4","P6", "P7","P8","Melanoma","CD4")
-    colour_vector<-c("chartreuse", "cyan", "blue", "darkorange", "chocolate4", "gold", "seagreen", "maroon","grey")
-  } else if (melpin=="SP-18-009036") { #P7 missing
-    T.phenotypes<-c("P1","P2","P3","P4","P5","P6","P8","CD4")
-    categories_of_interest<-c("P1","P2", "P3", "P4", "P5", "P6", "P8", "Melanoma","CD4")
-    colour_vector<-c("chartreuse", "cyan", "blue", "darkorange", "deeppink", "chocolate4", "seagreen", "maroon","grey")
-  } else if (melpin=="SP-17-004426 1AJ" | melpin=="SP-18-013432 2A") { #P5,P7 missing
-    T.phenotypes<-c("P1","P2","P3","P4","P6","P8","CD4")
-    categories_of_interest<-c("P1","P2", "P3", "P4", "P5", "P6", "P7", "P8", "Melanoma","CD4")
-    colour_vector<-c("chartreuse", "cyan", "blue", "darkorange", "deeppink", "chocolate4", "gold", "seagreen", "maroon","grey")
-  }else if(melpin=="S-17-21575 "|melpin=="SP-18-018867"){
-    T.phenotypes<-c("P8","CD4")
-    categories_of_interest<-c("P8", "Melanoma","CD4")
-    colour_vector<-c("seagreen", "maroon","grey")
-  }else if (melpin== "SP-18-023041"){#P1,2,3,5,7 missing
-    T.phenotypes<-c("P4","P6","P8","CD4")
-    categories_of_interest<-c("P4", "P6", "P8", "Melanoma","CD4")
-    colour_vector<-c("darkorange", "chocolate4", "seagreen", "maroon","grey")
-  }else if (melpin=="SP-18-023928 1B"){  #P1,2,3,4 missing
-    T.phenotypes<-c("P5","P6","P7", "P8","CD4")
-    categories_of_interest<-c("P5", "P6", "P7", "P8", "Melanoma","CD4")
-    colour_vector<-c("deeppink", "chocolate4", "gold", "seagreen", "maroon","grey")
-  } else if(melpin=="SP-17-005294 2A") { #No P1 or P2
-    T.phenotypes<-c("P3","P4","P5","P6","P7", "P8","CD4")
-    categories_of_interest<-c("P3", "P4", "P5", "P6", "P7", "P8", "Melanoma","CD4")
-    colour_vector<-c("blue", "darkorange", "deeppink", "chocolate4", "gold", "seagreen", "maroon","grey")
-  } else if (melpin=="SP-17-025007 3A"){ #P2 missing
-    T.phenotypes<-c("P1","P3","P4","P5","P6","P7", "P8","CD4")
-    categories_of_interest<-c("P1", "P3", "P4", "P5", "P6", "P7", "P8", "Melanoma","CD4")
-    colour_vector<-c("chartreuse", "blue", "darkorange", "deeppink", "chocolate4", "gold", "seagreen", "maroon","grey")
-  } else if (melpin=="SP-18-003582 1A"){ #P1,2,5 missing
-    T.phenotypes<-c("P3","P4","P6","P7", "P8","CD4")
-    categories_of_interest<-c( "P3", "P4", "P6", "P7", "P8", "Melanoma","CD4")
-    colour_vector<-c("blue", "darkorange", "chocolate4", "gold", "seagreen", "maroon","grey")
-  } else if(melpin=="40355"|melpin=="50909") { #P4,P6 mixed up!
-    T.phenotypes<-c("P1","P2","P3","P5","P7", "P8","CD4")
-    categories_of_interest<-c("P1","P2", "P3", "P5", "P7", "P8", "Melanoma","CD4")
-    colour_vector<-c("chartreuse", "cyan", "blue", "deeppink", "gold", "seagreen", "maroon","grey")
-  } else if (melpin=="54304"){ #P5,6 mixed up!
-    T.phenotypes<-c("P1","P2","P3","P4","P7", "P8","CD4")
-    categories_of_interest<-c("P1","P2", "P3", "P4", "P7", "P8", "Melanoma","CD4")
-    colour_vector<-c("chartreuse", "cyan", "blue", "darkorange", "gold", "seagreen", "maroon","grey")
-  } else {
     T.phenotypes<-c("P1","P2","P3","P4","P5","P6","P7", "P8","CD4")
     categories_of_interest<-c("P1","P2", "P3", "P4", "P5", "P6", "P7", "P8", "Melanoma","CD4")
     colour_vector<-c("chartreuse", "cyan", "blue", "darkorange", "deeppink", "chocolate4", "gold", "seagreen", "maroon","grey")
-  }
   
   immune.phenotypes<-c(T.phenotypes, "Melanoma")
   
