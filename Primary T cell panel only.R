@@ -39,19 +39,16 @@ for (i in T.files){
     colour_vector<-c("chartreuse", "cyan", "blue", "darkorange", "deeppink", "chocolate4", "gold", "seagreen", "maroon","grey")  
 
 #upload file to R
-formatted_image <- format_image_to_sce(format="HALO",
+formatted_image <- format_image_to_spe(format="HALO",
                                        path= i,
                                        markers=markers,
                                        dye_columns_interest=dye_columns_interest,
                                        intensity_columns_interest=intensity_columns_interest) 
 print_column(formatted_image, column= "Phenotype")
 
-#calculate cell proportions
-p_cells <- calculate_cell_proportions(formatted_image, reference_celltypes=c("Total"))
-
 #create plot with phenotypes
 pdf(file=paste0(melpin, "Tplot.pdf"),onefile=T, height=15, width=15)
-plot_cell_categories(formatted_image, phenotypes_of_interest, colour_vector)
+plot_cell_categories_grey(formatted_image, phenotypes_of_interest, colour_vector)
 dev.off()
 
 #measure distances
@@ -104,13 +101,12 @@ print("CD8s")
 dye_columns_interest <- c("CD8+ T cells", "Melanoma", "DAPI Positive Classification")
 intensity_columns_interest <- dye_columns_interest
 markers<-c("CD8+ T cells", "Melanoma", "DAPI")
-formatted_image <- format_image_to_sce(format="HALO",
+formatted_image <- format_image_to_spe(format="HALO",
                                        path= i,
                                        markers=markers,
                                        dye_columns_interest=dye_columns_interest,
                                        intensity_columns_interest=intensity_columns_interest) 
 print_column(formatted_image, column= "Phenotype")
-p_cells <- calculate_cell_proportions(formatted_image, reference_celltypes=c("Total"))
 
   mixscoretab<-data.frame(phenotype=character(),nmixingscore=numeric(),mixingscore=numeric(),Melpin=character())
   mixscorenum<-mixing_score_summary(formatted_image,reference_marker="Melanoma",target_marker="CD8+ T cells",radius=20, column = "Phenotype")
@@ -146,7 +142,7 @@ print("T cells")
 dye_columns_interest <- c("T cells", "Melanoma", "DAPI Positive Classification")
 intensity_columns_interest <- dye_columns_interest
 markers<-c("T cells", "Melanoma", "DAPI")
-formatted_image <- format_image_to_sce(format="HALO",
+formatted_image <- format_image_to_spe(format="HALO",
                                        path= i,
                                        markers=markers,
                                        dye_columns_interest=dye_columns_interest,
@@ -154,8 +150,6 @@ formatted_image <- format_image_to_sce(format="HALO",
 print_column(formatted_image, column= "Phenotype")
 
 #calculate cell proportions
-p_cells <- calculate_cell_proportions(formatted_image, reference_celltypes=c("Total"))
-
 mixscoretab<-data.frame(phenotype=character(),nmixingscore=numeric(),mixingscore=numeric(),Melpin=character())
 mixscorenum<-mixing_score_summary(formatted_image,reference_marker="Melanoma",target_marker="T cells",radius=20, column = "Phenotype")
 looptab<-data.frame(phenotype=paste0("T cells","mix"), nmixingscore=mixscorenum$Normalised_mixing_score,mixingscore=mixscorenum$Mixing_score,Melpin=melpin)
