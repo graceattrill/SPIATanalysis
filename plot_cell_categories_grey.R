@@ -1,4 +1,4 @@
-plot_cell_categories<-function (spe_object, categories_of_interest = NULL, colour_vector = NULL, 
+plot_cell_categories_grey<-function (spe_object, categories_of_interest = NULL, colour_vector = NULL, 
           feature_colname = "Cell.Type", cex = 1, layered = FALSE) 
 {
   if (feature_colname == "Structure" & is.null(categories_of_interest)) {
