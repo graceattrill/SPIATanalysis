@@ -3,9 +3,9 @@ library(stringr)
 library(spatstat)#for Kcross
 library(Rphenograph) 
 library(SPIAT)
-setwd("/Users/gracie/Desktop/R Projects/SPIATprimary/CD4 output")
+setwd("primaryoutput")
 
-combi.files<-list.files(path="/Users/gracie/Desktop/R Projects/SPIATprimary/CD4 combifiles", pattern="cluster.csv", full.names=T, recursive=T, include.dirs=T)
+combi.files<-list.files(path="primaryinput", pattern="cluster.csv", full.names=T, recursive=T, include.dirs=T)
 iteration<-1
 
 for(i in combi.files){
@@ -34,7 +34,7 @@ markers <- c("P1","P2", "P3", "P4", "P5", "P6", "P7", "P8", "DAPI", "B cell",
              "NK cell", "Langerhans cell", "HLAABCpMelanoma", "HLAABCnMelanoma","CD4")
 
 #Convert file name to melpin
-melpin<-str_remove(i,pattern = "extrainfilename")
+melpin<-str_remove(i,pattern = "extra_in_filename")
 melpin<-word(melpin, sep = "CD4")
 print(paste(iteration,melpin))
 
@@ -129,7 +129,7 @@ for (m in T.phenotypes){
 all.Kcross<-rbind(all.Kcross,Ktab)
 
 
-#Immune distance to nearest melanoma - re-do without HLA
+#Immune distance to nearest melanoma & entropy - re-do without HLA
   
   #define columns for SPIAT to read from
   dye_columns_interest <- c("P1",
@@ -186,8 +186,20 @@ all.Kcross<-rbind(all.Kcross,Ktab)
   all.avgdist<-rbind(all.avgdist,avgdisttab)
     }
   
+  #Entropy
+  print("Entropy...")
+  ent<-calculate_entropy(formatted_image,immune_phenotypes)
+  enttab<-data.table(melpin=melpin,entropy=ent)
+  if (iteration==1){
+    all.entropy<-enttab
+  } else {
+    all.entropy<-rbind(all.entropy,enttab)
+  }
+  
 iteration<-iteration+1
 }
+
+fwrite(all.entropy,file="primaryallentropy.csv",quote=F,sep=",")
 
 #Prepare Kcross and mixing scores for joint export
 col3<-rep(combi.files, each = 3)
