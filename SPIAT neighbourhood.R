@@ -12,7 +12,7 @@ set.seed(25)
 
 setwd(primaryoutput)
 
-combi.files<-list.files(path="primaryinput", pattern="cluster.csv", full.names = T, recursive = T, include.dirs = T)
+combi.files<-list.files(path="primaryinput", pattern="combitable.csv", full.names = T, recursive = T, include.dirs = T)
 tumour_phenotypes<-c("P1,Tumour","P2,Tumour","P3,Tumour","P4,Tumour","P5,Tumour","P6,Tumour","P7,Tumour","P8,Tumour","B cell,Tumour",
                      "NK cell,Tumour","Langerhans cell,Tumour","CD4,Tumour")
 stroma_phenotypes<-c("P1,Stroma","P2,Stroma","P3,Stroma","P4,Stroma","P5,Stroma","P6,Stroma","P7,Stroma","P8,Stroma","B cell,Stroma",
@@ -89,6 +89,16 @@ for (i in combi.files) {
   p_cells <- calculate_cell_proportions(formatted_image)
   print(p_cells)
   dev.off()
+  
+  #Entropy
+  print("Entropy...")
+  ent<-calculate_entropy(formatted_image,tumour_phenotypes)
+  enttab<-data.table(melpin=melpin,entropy=ent)
+  if (iteration==1){
+    all.entropy<-enttab
+  } else {
+    all.entropy<-rbind(all.entropy,enttab)
+  }
   
   avgmindist<-average_minimum_distance(formatted_image)*4.5
   print(avgmindist)
@@ -207,6 +217,9 @@ for (i in combi.files) {
   iteration1<-1
 }
 
+#Export intratumoural entropy
+fwrite(all.entropy,file="primarytumourentropy.csv",quote=F,sep=",")
+
 #rename clusters so nomatch
 all_vis$Classification<-NULL
 all_vis<-all_vis[all_vis$Percentage!=0,]
@@ -222,9 +235,9 @@ for (h in cd4exn){
   all_vis_combi_plot<-all_vis_combi_plot[all_vis_combi_plot$Neighborhood!=h,]
 }
 
-metadat<-as.data.frame(read.csv("Primary_melanoma_PhD_cohort.csv"))
+metadat<-as.data.frame(read.csv("clinicaldata.csv"))
 outcomedat<-metadat[,c(1,5)]
-colnames(outcomedat)<-str_remove(colnames(outcomedat),pattern="..A....5.years..B...Alive..5.years.")
+colnames(outcomedat)<-str_remove(colnames(outcomedat),pattern="anythingextra")
 all_vis_combi_plot<-merge(all_vis_combi_plot,outcomedat,by.x="melpin",by.y="Melpin",)
 
 fwrite(all_vis_combi_plot, file="primaryallvisd.csv", quote=F, sep=",")
