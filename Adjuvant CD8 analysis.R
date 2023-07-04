@@ -190,7 +190,7 @@ fwrite(all.entropy,file="adjuvantallentropy.csv",quote=F,sep=",")
 
 #Prepare good vs bad files externally to R, prep GAscaled function
 
-rf.summ.dist.all<-read.csv("C:\\Users\\Microscope\\Documents\\Grace\\Output\\Adjuvant output/AdjuvantRFalldist.csv",sep=",",header=T)
+rf.summ.dist.all<-read.csv("AdjuvantRFalldist.csv",sep=",",header=T)
 rf.summ.dist.all<-as.data.frame(rf.summ.dist.all)
 rf.summ.dist.all<-rf.summ.dist.all[3:96,]
 rf.summ.dist.all<-rf.summ.dist.all[rf.summ.dist.all$Reference != "T cell" & rf.summ.dist.all$Nearest != "T cell",]
@@ -210,7 +210,7 @@ plot_distance_heatmap_GAscaled(rf.summ.dist)
 dev.off()
 
 
-r.summ.dist.all<-read.csv("C:\\Users\\Microscope\\Documents\\Grace\\Output\\Adjuvant output/AdjuvantRalldist.csv",sep=",",header=T)
+r.summ.dist.all<-read.csv("AdjuvantRalldist.csv",sep=",",header=T)
 r.summ.dist.all<-as.data.frame(r.summ.dist.all)
 r.summ.dist.all<-r.summ.dist.all[3:96,]
 r.summ.dist.all<-r.summ.dist.all[r.summ.dist.all$Reference != "T cell" & r.summ.dist.all$Nearest != "T cell",]
